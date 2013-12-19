@@ -21,5 +21,7 @@ module Depot
     # config.i18n.default_locale = :de
 
     # config.assets.enabled = false
+
+    I18n.enforce_available_locales = false
   end
 end
