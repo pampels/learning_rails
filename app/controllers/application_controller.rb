@@ -11,4 +11,9 @@ class ApplicationController < ActionController::Base
 			session[:cart_id] = cart.id
 			cart
 		end
+
+		def increment_views
+			session[:views] ||= 0
+			session[:views] += 1
+		end
 end
