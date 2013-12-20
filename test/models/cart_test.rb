@@ -5,23 +5,27 @@ class CartTest < ActiveSupport::TestCase
   #   assert true
   # end
 
-  def add_new_product(product)
-  	cart = Cart.create
-  	cart.add_product(product.id, product.price)
-  	cart
+  def add_new_product(cart, product)
+  	cart.add_product(product.id, product.price).save!
   end
 
-  test 'cart should be created' do
-  	cart = Cart.create
-  	cart.add_product(products(:ruby).id, products(:ruby).price).save!
-    assert_equal 3, LineItem.count
-	end
-
   test 'cart should create a new line item when adding a new product' do
-  	# cart = add_new_product(products(:ruby))
-  	# assert_equal 1, cart.line_items.count
+    cart = Cart.create
 
-  	# cart = add_new_product(products(:one))
-  	# assert_equal 2, cart.line_items.count
+  	add_new_product(cart, products(:ruby))
+  	assert_equal 1, cart.line_items.count, 'line_items should be 1'
+    assert_equal products(:ruby).price, cart.line_items.first.price
+
+  	add_new_product(cart, products(:rails))
+  	assert_equal 2, cart.line_items.count, 'line_items should be 2'
+    assert_equal products(:rails).price, cart.line_items.last.price
+  end
+
+  test 'cart should update existing line_item when adding existing product' do
+    cart = Cart.create
+    add_new_product(cart, products(:ruby))
+    add_new_product(cart, products(:ruby))
+    assert_equal 1, cart.line_items.count
+    assert_equal products(:ruby).price, cart.line_items.first.price
   end
 end
