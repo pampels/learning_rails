@@ -37,7 +37,7 @@ class ProductTest < ActiveSupport::TestCase
 		assert product.valid?
 
 		product.price = 1000
-		assert product.invalid?, 'must be less than or equal to 1000'
+		assert product.valid?, 'must be less than or equal to 1000'
 	end
 
 	test "product title must be at least 10 characters" do
@@ -60,6 +60,15 @@ class ProductTest < ActiveSupport::TestCase
 		)
 	end
 
+	def add_new_product(image_url)
+		Product.create(
+			:title => "My Book Title" ,
+			:description => "yyy" ,
+			:price => 1,
+			:image_url => image_url
+		)
+	end
+
 	test "image url" do
 		ok = %w{ fred.gif fred.jpg fred.png FRED.JPG FRED.Jpg http://a.b.c/x/y/z/fred.gif }
 		bad = %w{ fred.doc fred.gif/more fred.gif.more }
@@ -71,6 +80,9 @@ class ProductTest < ActiveSupport::TestCase
 		bad.each do |name|
 			assert new_product(name).invalid?, " #{name} shouldn't be valid"
 		end
+
+		assert add_new_product('unique.jpg').valid?, 'unique.jpg should be valid'
+		assert add_new_product('unique.jpg').invalid?, 'unique.jpg is already taken'
 	end
 
 	test "product is not valid without a unique title" do
