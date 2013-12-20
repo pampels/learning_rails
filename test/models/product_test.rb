@@ -16,7 +16,7 @@ class ProductTest < ActiveSupport::TestCase
 		assert product.errors[:image_url].any?
 	end
 
-	test "product price must be positive" do
+	test "product price must be positive and <= 100" do
 		product = Product.new(
 			:title => "My Book Title" ,
 			:description => "yyy" ,
@@ -35,6 +35,9 @@ class ProductTest < ActiveSupport::TestCase
 
 		product.price = 1
 		assert product.valid?
+
+		product.price = 1000
+		assert product.invalid?, 'must be less than or equal to 1000'
 	end
 
 	test "product title must be at least 10 characters" do
