@@ -81,8 +81,8 @@ class ProductTest < ActiveSupport::TestCase
 			assert new_product(name).invalid?, " #{name} shouldn't be valid"
 		end
 
-		assert add_new_product('unique.jpg').valid?, 'unique.jpg should be valid'
-		assert add_new_product('unique.jpg').invalid?, 'unique.jpg is already taken'
+		assert add_new_product('uniquename.jpg').valid?, 'unique.jpg should be valid'
+		assert add_new_product('uniquename.jpg').invalid?, 'unique.jpg is already taken'
 	end
 
 	test "product is not valid without a unique title" do
