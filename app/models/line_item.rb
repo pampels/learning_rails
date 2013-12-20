@@ -1,4 +1,6 @@
 class LineItem < ActiveRecord::Base
+	belongs_to :product
 	belongs_to :cart
-	belongs_to :line_item
+
+	validates :product_id, :presence => true
 end
