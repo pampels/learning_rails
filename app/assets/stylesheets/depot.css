@@ -97,7 +97,8 @@
   padding-top: 1em;
   padding-left: 1em;
   padding-bottom: 1em;
-  width: 16em;
+  /*width: 16em;*/
+  min-height: 500px;
   background: #141;
 }
 
@@ -168,4 +169,14 @@
 #store .total_line .total_cell {
   font-weight: bold;
   border-top: 1px solid #595;
+}
+
+#cart, #cart table {
+  font-size: smaller;
+  color: white;
+}
+#cart table {
+  border-top: 1px dotted #595;
+  border-bottom: 1px dotted #595;
+  margin-bottom: 10px;
 }
