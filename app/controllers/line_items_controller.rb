@@ -36,6 +36,7 @@ class LineItemsController < ApplicationController
         session[:views] = 0
 
         format.html { redirect_to store_url}
+        format.js
         format.json { render action: 'show', status: :created, location: @line_item }
       else
         format.html { render action: 'new' }
